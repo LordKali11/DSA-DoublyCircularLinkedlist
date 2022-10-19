@@ -1,0 +1,137 @@
+Class Node
+	data
+	next
+	previous
+ End Class
+addSong(begin, song)
+	if (begin == empty) then
+		create node as new_node
+		new_node.data =song
+		new_node.next = new_node.previous
+		begin = new_node
+		return empty
+	last = begin.previous
+	new_node.data = song
+	new_node.next = song
+	begin.previous = new_node
+	new_node.previous = last
+	last.next = new_node
+End Function
+
+removeSong(begin, song)
+	if begin == empty then
+		return empty
+	create node as current
+	create node as previous_node
+
+	current = begin
+	previous_node = none
+	while do cuurent.data != song
+		if current.next = begin then
+			print "there is no song with the name" + song
+			return begin
+		end if
+		previous_node = current
+		current = current.next
+	end While
+	
+	if current.next == begin && previous_node == none then
+		begin = none
+		return begin
+	end if
+	
+	if current == begin then
+		previous_node = begin.previous
+		begin = begin.next
+		previou_node.next = begin
+		begin.previous = previous_node
+	
+	else if current.next == begin then
+		previous_node.next = begin
+		begin.previous = previous_node
+	else
+		create node as temp
+		temp = current.next
+		previous_node.next = temp
+		temp.prev = previous
+	return begin
+End Function
+
+play(begin)
+	
+	temp = begin
+	
+	while temp.next != begin do
+		print "playing " + temp.data
+		temp = temp.next
+	print temp.data
+	last = temp.previous
+	while temp.previous != last
+		print "playing" + temp.data
+		temp = temp.prev	
+	end While
+	print temp.data
+End Function
+
+repeat(begin)
+	temp =  begin
+	running = true
+	print "enter stop to stop the repeat
+	while running do
+		print "playing" + temp.data
+		temp = temp.next
+		if key == "stop" then
+			running = false
+		end if
+	end while do
+End Function
+	
+search(begin, song)
+	temp = begin
+	found = 0
+	count = 0
+	if temp == none then 
+		print "playlist is empty"
+	else
+		while temp.next != begin do
+			count++
+			if temp.data == song
+				found = 1
+				break
+			end if
+			temp = temp.next
+		end while
+	if found == 1 then
+		print song + "found at position + count
+	
+	else print song + "not in the list"
+end Function
+
+Start
+	
+	begin = none
+	print "Choose options"
+	printline "1. Add Song to Playlist 2. Remove Song from playlist 3. Search Song from playlist 4.play playlist 5. quit"
+	running = true
+	while running do
+		get choice
+		if choice == 1 then
+			enter song_name
+			addSong(begin,song_name)
+		else if choice == 2 then
+			enter song_name
+			removSong(begin, song_name)
+		else if choice == 3 then
+			enter song_name
+			search(begin,song_name)
+		else if choice == 4 then
+			play(begin)
+		else if choice == 5 then
+			repeat(begin, count)
+		else if choice == 6 then
+			running = false
+	end while do
+	print "you have quit"
+end
+			
+				
